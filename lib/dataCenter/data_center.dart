@@ -38,10 +38,13 @@ class DataCenter {
   /// 如果不存在DB就创建文件
   Future<Database> createDBIfNotExist() async {
     String fullpath = await fullDataBasesPath();
-    Database db = await openDatabase(fullpath,
-        version: 1, onCreate: _onCreate, onConfigure: _onConfigure);
-    _database = db;
-    return db;
+    if (_database == null) {
+      Database db = await openDatabase(fullpath,
+          version: 1, onCreate: _onCreate, onConfigure: _onConfigure);
+      _database = db;
+      printY('_database is null,now open it');
+    }
+    return _database;
   }
 
   /// 打开外键
@@ -213,11 +216,13 @@ class DataCenter {
         where: '${ArticleRolumns.userid}  = ? and ${ArticleRolumns.read} = 1',
         whereArgs: ['$userId']);
 
-    int ret = await _database
-        .update(_userName, {'${UserRolumns.readNumber}': alls.length ?? 0});
+    int ret = await _database.update(
+        _userName, {'${UserRolumns.readNumber}': alls.length ?? 0},
+        where: '${UserRolumns.autoUrl} = ?', whereArgs: ['$userId']);
 
     int ret2 = await _database.update(_userName,
-        {'${UserRolumns.unReadNumber}': alls.length - reads.length ?? 0});
+        {'${UserRolumns.unReadNumber}': alls.length - reads.length ?? 0},
+        where: '${UserRolumns.autoUrl} = ?', whereArgs: ['$userId']);
     return ret > 0 && ret2 > 0;
   }
 
@@ -282,5 +287,6 @@ class DataCenter {
 
   void dispose() {
     _database.close();
+    _database = null;
   }
 }

@@ -8,10 +8,12 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rss/dataCenter/data_center.dart';
 import 'package:rss/main.dart';
-import 'package:rss/models/HomeViewModel.dart';
-import 'package:rss/route/articleModels/article_view_model.dart';
-import 'package:rss/route/artile_detail.dart';
+import 'package:rss/route/article/articleModels/article_view_model.dart';
+import 'package:rss/route/article/artile_detail.dart';
+import 'package:rss/route/home/models/HomeViewModel.dart';
+import 'package:rss/tools/event_buses.dart';
 import 'package:rss/tools/tool.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:xml/xml.dart';
 
 ///
@@ -54,6 +56,7 @@ class _ListPageRouteState extends State<ListPageRoute> {
   String titleOf(int index) => list[index]['title'] ?? '';
   String contentOf(int index) => list[index]['content'] ?? '';
   String idOf(int index) => list[index]['id'] ?? '';
+  String urlOf(int index) => list[index]['link'] ?? '';
 
   String pushTime(int index) => list[index]['updateTime'] ?? '';
 
@@ -75,7 +78,6 @@ class _ListPageRouteState extends State<ListPageRoute> {
   }
 
   Widget _body() {
-    printY('list build');
     return SafeArea(
       bottom: false,
       child: CupertinoScrollbar(
@@ -185,7 +187,11 @@ class _ListPageRouteState extends State<ListPageRoute> {
     );
   }
 
-  void _cellClick(int index) {
+  void _cellClick(int index) async {
+    // if (await canLaunch(urlOf(index))) {
+    //   await launch(urlOf(index));
+    // }
+    printY('${urlOf(index)}');
     context
         .read<ArticlViewModel>()
         .readArticle(id: idOf(index), atomUrl: widget.autoUrl);
@@ -193,6 +199,7 @@ class _ListPageRouteState extends State<ListPageRoute> {
         builder: (_) => ArtileDetailRoute(
               content: contentOf(index),
               title: '${titleOf(index)}',
+              url: urlOf(index),
             )));
   }
 

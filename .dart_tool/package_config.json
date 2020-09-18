@@ -8,6 +8,12 @@
       "languageVersion": "2.2"
     },
     {
+      "name": "async",
+      "rootUri": "file:///Users/Jerry/.fvm/versions/1.20.0-stable/.pub-cache/hosted/pub.flutter-io.cn/async-2.4.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.2"
+    },
+    {
       "name": "characters",
       "rootUri": "file:///Users/Jerry/.fvm/versions/1.20.0-stable/.pub-cache/hosted/pub.flutter-io.cn/characters-1.0.0",
       "packageUri": "lib/",
@@ -104,6 +110,12 @@
       "languageVersion": "1.19"
     },
     {
+      "name": "flutter_slidable",
+      "rootUri": "file:///Users/Jerry/.fvm/versions/1.20.0-stable/.pub-cache/hosted/pub.flutter-io.cn/flutter_slidable-0.5.7",
+      "packageUri": "lib/",
+      "languageVersion": "1.19"
+    },
+    {
       "name": "flutter_spinkit",
       "rootUri": "file:///Users/Jerry/.fvm/versions/1.20.0-stable/.pub-cache/hosted/pub.flutter-io.cn/flutter_spinkit-4.1.2+1",
       "packageUri": "lib/",
@@ -114,6 +126,24 @@
       "rootUri": "file:///Users/Jerry/.fvm/versions/1.20.0-stable/.pub-cache/git/flutter_svg-22346c2c3d99ee2d0ac9e7cad67d44a56a01c68f/",
       "packageUri": "lib/",
       "languageVersion": "2.2"
+    },
+    {
+      "name": "flutter_transition_animation",
+      "rootUri": "file:///Users/Jerry/.fvm/versions/1.20.0-stable/.pub-cache/hosted/pub.flutter-io.cn/flutter_transition_animation-1.0.1+2",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
+    },
+    {
+      "name": "flutter_web_plugins",
+      "rootUri": "file:///Users/Jerry/.fvm/versions/1.20.0-stable/packages/flutter_web_plugins",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "flutter_webview_plugin",
+      "rootUri": "file:///Users/Jerry/.fvm/versions/1.20.0-stable/.pub-cache/hosted/pub.flutter-io.cn/flutter_webview_plugin-0.3.11",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
     },
     {
       "name": "html",
@@ -144,6 +174,12 @@
       "rootUri": "file:///Users/Jerry/.fvm/versions/1.20.0-stable/.pub-cache/hosted/pub.flutter-io.cn/nested-0.0.4",
       "packageUri": "lib/",
       "languageVersion": "2.2"
+    },
+    {
+      "name": "overlay_support",
+      "rootUri": "file:///Users/Jerry/.fvm/versions/1.20.0-stable/.pub-cache/hosted/pub.flutter-io.cn/overlay_support-1.0.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
     },
     {
       "name": "path",
@@ -200,6 +236,12 @@
       "languageVersion": "1.24"
     },
     {
+      "name": "platform_detect",
+      "rootUri": "file:///Users/Jerry/.fvm/versions/1.20.0-stable/.pub-cache/hosted/pub.flutter-io.cn/platform_detect-1.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.4"
+    },
+    {
       "name": "plugin_platform_interface",
       "rootUri": "file:///Users/Jerry/.fvm/versions/1.20.0-stable/.pub-cache/hosted/pub.flutter-io.cn/plugin_platform_interface-1.0.2",
       "packageUri": "lib/",
@@ -216,6 +258,12 @@
       "rootUri": "file:///Users/Jerry/.fvm/versions/1.20.0-stable/.pub-cache/hosted/pub.flutter-io.cn/provider-4.3.2+2",
       "packageUri": "lib/",
       "languageVersion": "2.7"
+    },
+    {
+      "name": "pub_semver",
+      "rootUri": "file:///Users/Jerry/.fvm/versions/1.20.0-stable/.pub-cache/hosted/pub.flutter-io.cn/pub_semver-1.4.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
     },
     {
       "name": "pull_to_refresh",
@@ -272,6 +320,42 @@
       "languageVersion": "2.4"
     },
     {
+      "name": "url_launcher",
+      "rootUri": "file:///Users/Jerry/.fvm/versions/1.20.0-stable/.pub-cache/hosted/pub.flutter-io.cn/url_launcher-5.6.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "url_launcher_linux",
+      "rootUri": "file:///Users/Jerry/.fvm/versions/1.20.0-stable/.pub-cache/hosted/pub.flutter-io.cn/url_launcher_linux-0.0.1+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "url_launcher_macos",
+      "rootUri": "file:///Users/Jerry/.fvm/versions/1.20.0-stable/.pub-cache/hosted/pub.flutter-io.cn/url_launcher_macos-0.0.1+8",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "url_launcher_platform_interface",
+      "rootUri": "file:///Users/Jerry/.fvm/versions/1.20.0-stable/.pub-cache/hosted/pub.flutter-io.cn/url_launcher_platform_interface-1.0.8",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "url_launcher_web",
+      "rootUri": "file:///Users/Jerry/.fvm/versions/1.20.0-stable/.pub-cache/hosted/pub.flutter-io.cn/url_launcher_web-0.1.3+2",
+      "packageUri": "lib/",
+      "languageVersion": "2.2"
+    },
+    {
+      "name": "url_launcher_windows",
+      "rootUri": "file:///Users/Jerry/.fvm/versions/1.20.0-stable/.pub-cache/hosted/pub.flutter-io.cn/url_launcher_windows-0.0.1+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
       "name": "vector_math",
       "rootUri": "file:///Users/Jerry/.fvm/versions/1.20.0-stable/.pub-cache/hosted/pub.flutter-io.cn/vector_math-2.0.8",
       "packageUri": "lib/",
@@ -308,7 +392,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2020-09-17T09:34:05.918628Z",
+  "generated": "2020-09-18T09:59:00.795862Z",
   "generator": "pub",
   "generatorVersion": "2.9.0"
 }

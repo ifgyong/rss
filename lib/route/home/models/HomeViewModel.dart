@@ -9,7 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rss/dataCenter/data_center.dart';
 import 'package:rss/dataCenter/table_column.dart';
-import 'package:rss/main.dart';
+import 'package:rss/tools/event_buses.dart';
 import 'package:rss/tools/tool.dart';
 import 'package:xml/xml.dart';
 
@@ -38,9 +38,9 @@ class HomeViewModel extends ChangeNotifier {
     list ??= [];
     _center = DataCenter()..createDBIfNotExist();
 
+    /// 加载本地数据
     eventBus.on<HomeFreshUI>().listen((event) {
-      loadData();
-      printY('bus in homeviewmodel');
+      loadDataLocal();
     });
   }
 
@@ -60,21 +60,24 @@ class HomeViewModel extends ChangeNotifier {
         unread: unread);
   }
 
-  Future<void> loadDataLocal() async {
+  /// 加载本地数据
+  Future<void> loadDataLocal({bool shouldNotification = true}) async {
     try {
       await _center.createDBIfNotExist();
       list = await _center.selectUsers();
-      notifyListeners();
+      if (shouldNotification == true) notifyListeners();
     } catch (e) {}
   }
 
+  /// 重新下载数据
   Future<void> loadData() async {
     try {
       List<Map<String, dynamic>> maps = await _center.selectUsers();
       for (int i = 0; i < maps.length; i++) {
         Map<String, dynamic> map = maps[i];
         if (map.containsKey('${UserRolumns.autoUrl}')) {
-          await addRss(map['${UserRolumns.autoUrl}']);
+          await addRss(map['${UserRolumns.autoUrl}'],
+              shouldNotification: false);
           await _center.updateUserReadNumber(
               userId: map['${UserRolumns.autoUrl}']);
         }
@@ -84,25 +87,30 @@ class HomeViewModel extends ChangeNotifier {
     } catch (e) {}
   }
 
-  Future<void> addRss(String url) async {
+  Future<void> addRss(String url, {bool shouldNotification = true}) async {
     if (url.isNotEmpty) {
       bool have = await _center.usersContainsId(md5ToKey(url: url));
       if (have == false) {
-        loadAndSaveInfo(url);
+        loadAndSaveInfo(url, shouldNotification: shouldNotification);
       } else {
         error = '该订阅已存在';
-        notifyListeners();
+        if (shouldNotification == true) {
+          notifyListeners();
+        }
+
         error = '';
       }
-      printY('$have');
+      printY('homeviewmodel:是否已经有该订阅数据： $have');
     } else {
       error = '订阅不可为空';
-      notifyListeners();
+      if (shouldNotification == true) {
+        notifyListeners();
+      }
       error = '';
     }
   }
 
-  void loadAndSaveInfo(String url) async {
+  void loadAndSaveInfo(String url, {bool shouldNotification = true}) async {
     var resposne = await Dio().get(url);
     String xml = resposne.data;
 
@@ -127,7 +135,6 @@ class HomeViewModel extends ChangeNotifier {
         ah = authos.first.text;
       }
       map['${UserRolumns.name}'] = '$ah';
-      print('name: ${ah}');
 
       var links = root.findAllElements('id').toList();
       links
@@ -136,7 +143,6 @@ class HomeViewModel extends ChangeNotifier {
             element.text.matchAsPrefix('https').start == 0);
       if (links.length > 0) {
         map['${UserRolumns.home}'] = '${links[0].text}';
-        print('home: ${links[0].text}');
       }
 
       List<Map<String, dynamic>> subList = List<Map<String, dynamic>>();
@@ -176,11 +182,28 @@ class HomeViewModel extends ChangeNotifier {
           item['${ArticleRolumns.userid}'] = currentUserId;
           await _center.insertArticleMap(item);
         }
-        list = await _center.selectUsers();
-        notifyListeners();
+        loadDataLocal(shouldNotification: shouldNotification);
       }
-    } catch (e, s) {
-      print(e.toString() + s.toString());
+    } on DioErrorType catch (e) {
+      if (e == DioErrorType.CANCEL) {
+        error = '网络取消';
+      } else if (e == DioErrorType.RESPONSE) {
+        error = '没找到资源';
+      } else if (e == DioErrorType.CONNECT_TIMEOUT ||
+          e == DioErrorType.SEND_TIMEOUT) {
+        error = '网络超时';
+      } else if (e == DioErrorType.DEFAULT) {
+        error = '网络错误';
+        print(e.toString());
+      }
+      notifyListeners();
+      error = '';
+    } catch (e) {
+      error = '网络错误';
+
+      notifyListeners();
+      error = '';
+      print(e.toString());
     }
   }
 
